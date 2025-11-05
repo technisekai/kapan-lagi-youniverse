@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  db-pg-kly-dwh:
+      image: postgres:17
+      container_name: db-pg-kly-dwh
+      ports:
+        - 5432:5432
+      environment:
+        POSTGRES_USER: admin
+        POSTGRES_PASSWORD: admin
+        POSTGRES_DB: public
+      volumes:
+        - db-pg-kly-dwh:/var/lib/postgresql/data 
+      networks:
+        - kly-dwh-network 
+
+volumes:
+  db-pg-kly-dwh:
+  
+networks:
+  kly-dwh-network:
+    driver: bridge
+    name: kly-dwh-network 
