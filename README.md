@@ -4,7 +4,7 @@
 1. Expected the computer already have Python 3.11 and Docker
 2. Run `docker-compose up` in the root dir
 3. _Postgresql already up_
-4. Open the notebook (can used Visual Studio Code with Jupyter Notebook extension installed, jupyterlab, or jupyterhub)
+4. Open the `main.ipynb` notebook (can used Visual Studio Code with Jupyter Notebook extension installed, jupyterlab, or jupyterhub)
 5. Run all cells in notebook
 
 ## Tech Stack
