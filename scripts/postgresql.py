@@ -37,7 +37,7 @@ def dict_to_postgresql_schema(schema: dict):
             postgresql_schema[key] = 'boolean'
         elif json_type_name == 'date':
             postgresql_schema[key] = 'date'
-        elif json_type_name == 'datetime':
+        elif json_type_name in ['datetime', 'timestamp']:
             postgresql_schema[key] = 'timestamp'
         else:
             raise Exception(f'Err {json_type_name} data type not defined!')

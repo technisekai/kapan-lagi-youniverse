@@ -3,6 +3,11 @@ create view gold.daily_summary as
     select 
         ga4.event_timestamp as "date",
         ga4.content_id as content_id,
+        ga4.site,
+        ga4.title,
+        ga4.author,
+        ga4.publish_timestamp,
+        ga4.section,
         ga4.cnt_pageviews,
         ga4.cnt_session,
         ga4.cnt_user_engagment,

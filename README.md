@@ -42,9 +42,11 @@ For each partitioned date, the script ensures no duplicate rows exist by applyin
 
 With this hashrow, the script can re-run in certain partition without get duplicate data because it will insert data if the hashrow is not exists.
 
+This script also automatically handle creating schema and table schema also generating complex query to re-usable in other task.
+
 ![alt text](image-2.png)
 
-When creating metrics, there are condition when the raw data are late arriving. To get late arriving data, use the `_updated_at` column to filter the new data (`_updated_at` is when the data ingest to data warehouse, so even the `event_timestamp` is 2 Nov if it ingest to data warehouse at 3 Nov it will 3 Nov). Use grouping and sum with `event_timestamp` and `content_id` columns as a key. When `event_timestamp` and `content_id` is exists in mart table then update the existing data with `old data + new data` else just insert the new data into mart table.
+When creating metrics, there are condition when the raw data are late arriving. To get late arriving data, use the `_updated_at` column to filter the new data (`_updated_at` is when the data ingest to data warehouse, so even the `event_timestamp` is 2 Nov if it ingest to data warehouse at 3 Nov it will 3 Nov). Use grouping with `event_timestamp` and `content_id` columns as a key then counting and filter to calculate metrics. When `event_timestamp` and `content_id` is exists in mart table then update the existing data with `old data + new data` else just insert the new data into mart table.
 
 ### Suggestion
 - Partition: use `_updated_at` as partition with day level to reduce cost because the `_updated_at` is column that often we use to filter data to create metrics
@@ -68,11 +70,13 @@ For each partitioned date, the script ensures no duplicate rows exist by applyin
 
 With this hasrow, the script can re-run in certain daily-partition without get duplication data because it will insert data if the hashrow is not exists.
 
+This script also automatically handle creating schema and table schema also generating complex query to re-usable in other task.
+
 ![alt text](image-2.png)
 
 When creating metrics, used the `_updated_at` column to filter and get the new data. Then, using grouping and sum statement with `served_at` and `content_id` as key id. If `served_at` and `content_id` exists in the mart table then update the existing data with `old data + new data` else just insert the new data into mart table.
 
-Then, join the metrics with metrics from Study Case 1 and save as view table (recommended materialize view).
+Then, join the metrics with metrics from Study Case 1 and save as view table with name `daily_summary` (recommended materialize view).
 
 ### Suggestion
 - Partition: use `_updated_at` as partition with day level to reduce cost because the `_updated_at` is column that often we use to filter data to create metrics
